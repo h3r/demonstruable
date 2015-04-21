@@ -1,0 +1,264 @@
+/*!
+ * Skill CSS Rotated Element Pie Chart
+ *
+ * Copyright 2014 Edit by: Himanshu Softtech
+ */
+#desc {
+	text-align: center;
+	margin: 40px 0;
+}
+.skill_1 {
+	position: relative;
+	font-size: 220px;
+	width: 150px;
+	height: 150px;
+	float: left;
+}
+.prog-contain {
+	width: 220px;
+	height: 220px;
+	margin: 0px auto;
+	background: url(../images/skill_bg.png) no-repeat;
+}
+.skill_1 > .percent {
+	position: absolute;
+	font-size: 44px;
+	text-align: center;
+	background: url(../images/skill_text_bg.png) no-repeat;
+	top: 32px;
+	right: -32px;
+	width: 150px;
+	height: 150px;
+	padding: 0px;
+}
+.skill_1 > .percent > p {
+	margin: 57px 0 0 7px;
+}
+.skill_1 > #slice {
+	position: absolute;
+	width: 1em;
+	height: 1em;
+	clip: rect(0px,1em,1em,0.5em);
+}
+.skill_1 > #slice.gt50 {
+	clip: rect(auto, auto, auto, auto);
+}
+.skill_1 > #slice > .pie {
+	border: 32px solid #fff;
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	clip: rect(0em,0.5em,1em,0em);
+	-moz-border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	border-radius: 0.5em;
+	margin-top: 1px;
+	margin-left: 1px;
+}
+.skill_1 > #slice > .pie.fill {
+	-moz-transform: rotate(180deg) !important;
+	-webkit-transform: rotate(180deg) !important;
+	-o-transform: rotate(180deg) !important;
+	transform: rotate(180deg) !important;
+}
+.skill_1.fill > .percent {
+	display: none;
+}
+.skill_1.fill > #slice > .pie {
+	border: transparent;
+	width: 1em;
+	height: 1em;
+}
+/*  Skill First part End   */
+/*  Skill Second part Start   */
+.skill_2 {
+	position: relative;
+	font-size: 220px;
+	width: 150px;
+	height: 150px;
+	float: left;
+}
+#prog-contain {
+	width: 220px;
+	height: 220px;
+	margin: 0px auto;
+	background: url(../images/skill_bg.png) no-repeat;
+}
+.skill_2 > .percent_2 {
+	position: absolute;
+	font-size: 44px;
+	text-align: center;
+	background: url(../images/skill_text_bg.png) no-repeat;
+	top: 32px;
+	right: -32px;
+	width: 150px;
+	height: 150px;
+	padding: 0px;
+}
+.skill_2 > .percent_2 > p {
+	margin: 57px 0 0 7px;
+}
+.skill_2 > #slice2 {
+	position: absolute;
+	width: 1em;
+	height: 1em;
+	clip: rect(0px,1em,1em,0.5em);
+}
+.skill_2 > #slice2.gt50 {
+	clip: rect(auto, auto, auto, auto);
+}
+.skill_2 > #slice2 > .pie {
+	border: 32px solid #fff;
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	clip: rect(0em,0.5em,1em,0em);
+	-moz-border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	border-radius: 0.5em;
+	margin-top: 1px;
+	margin-left: 1px;
+}
+.skill_2 > #slice2 > .pie.fill {
+	-moz-transform: rotate(180deg) !important;
+	-webkit-transform: rotate(180deg) !important;
+	-o-transform: rotate(180deg) !important;
+	transform: rotate(180deg) !important;
+}
+.skill_2.fill > .percent_2 {
+	display: none;
+}
+.skill_2.fill > #slice2 > .pie {
+	border: transparent;
+	width: 1em;
+	height: 1em;
+}
+/*  Skill Second part End   */
+/*  Skill Third part Start   */
+.skill_3 {
+	position: relative;
+	font-size: 220px;
+	width: 150px;
+	height: 150px;
+	float: left;
+}
+#prog-contain {
+	width: 220px;
+	height: 220px;
+	margin: 0px auto;
+	background: url(../images/skill_bg.png) no-repeat;
+}
+.skill_3 > .percent_3 {
+	position: absolute;
+	font-size: 44px;
+	text-align: center;
+	background: url(../images/skill_text_bg.png) no-repeat;
+	top: 32px;
+	right: -32px;
+	width: 150px;
+	height: 150px;
+	padding: 0px;
+}
+.skill_3 > .percent_3 > p {
+	margin: 57px 0 0 7px;
+}
+.skill_3 > #slice3 {
+	position: absolute;
+	width: 1em;
+	height: 1em;
+	clip: rect(0px,1em,1em,0.5em);
+}
+.skill_3 > #slice3.gt50 {
+	clip: rect(auto, auto, auto, auto);
+}
+.skill_3 > #slice3 > .pie {
+	border: 32px solid #fff;
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	clip: rect(0em,0.5em,1em,0em);
+	-moz-border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	border-radius: 0.5em;
+	margin-top: 1px;
+	margin-left: 1px;
+}
+.skill_3 > #slice3 > .pie.fill {
+	-moz-transform: rotate(180deg) !important;
+	-webkit-transform: rotate(180deg) !important;
+	-o-transform: rotate(180deg) !important;
+	transform: rotate(180deg) !important;
+}
+.skill_3.fill > .percent_3 {
+	display: none;
+}
+.skill_3.fill > #slice3 > .pie {
+	border: transparent;
+	width: 1em;
+	height: 1em;
+}
+/*  Skill Third part End   */
+/*  Skill Fourth part Start   */
+.skill_4 {
+	position: relative;
+	font-size: 220px;
+	width: 150px;
+	height: 150px;
+	float: left;
+}
+#prog-contain {
+	width: 220px;
+	height: 220px;
+	margin: 0px auto;
+	background: url(../images/skill_bg.png) no-repeat;
+}
+.skill_4 > .percent_4 {
+	position: absolute;
+	font-size: 44px;
+	text-align: center;
+	background: url(../images/skill_text_bg.png) no-repeat;
+	top: 32px;
+	right: -32px;
+	width: 150px;
+	height: 150px;
+	padding: 0px;
+}
+.skill_4 > .percent_4 > p {
+	margin: 57px 0 0 7px;
+}
+.skill_4 > #slice4 {
+	position: absolute;
+	width: 1em;
+	height: 1em;
+	clip: rect(0px,1em,1em,0.5em);
+}
+.skill_4 > #slice4.gt50 {
+	clip: rect(auto, auto, auto, auto);
+}
+.skill_4 > #slice4 > .pie {
+	border: 32px solid #fff;
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	clip: rect(0em,0.5em,1em,0em);
+	-moz-border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	border-radius: 0.5em;
+	margin-top: 1px;
+	margin-left: 1px;
+}
+.skill_4 > #slice4 > .pie.fill {
+	-moz-transform: rotate(180deg) !important;
+	-webkit-transform: rotate(180deg) !important;
+	-o-transform: rotate(180deg) !important;
+	transform: rotate(180deg) !important;
+}
+.skill_4.fill > .percent_4 {
+	display: none;
+}
+.skill_4.fill > #slice4 > .pie {
+	border: transparent;
+	width: 1em;
+	height: 1em;
+}
+/*  Skill Fourth part End   */
