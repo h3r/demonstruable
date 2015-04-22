@@ -12,7 +12,7 @@ padding: 8px 5px 3px 8px;
 font-weight:bold;
 }
 .hs_shop_seprator {
-background:url(../images/shop_seprator.png) repeat-x;
+background:url(images/shop_seprator.png) repeat-x;
 margin-top: 16px;
 min-height: 10px !important;
 }
@@ -23,10 +23,10 @@ margin-top: 25px;
 margin-top: 0px;
 margin-left: -25px !important;
 background-size: 100% 96%;
-background: url(../images/shop_slider_bg.png);
+background: url(images/shop_slider_bg.png);
 }
 .hs_shop_heading {
-background: url(../images/shop_heading_seprator.png) NO-REPEAT;
+background: url(images/shop_heading_seprator.png) NO-REPEAT;
 height: 40px;
 background-position: 0 60%;
 }
@@ -36,7 +36,7 @@ float: left;
 padding-right: 17px;
 }
 .hs_shop_product {
-background: url(../images/shop_product_border.png) NO-REPEAT;
+background: url(images/shop_product_border.png) NO-REPEAT;
 margin-left: 0px !important;
 margin-right: 13px;
 height: 331px;

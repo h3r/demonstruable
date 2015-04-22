@@ -18,13 +18,13 @@
 	width: 220px;
 	height: 220px;
 	margin: 0px auto;
-	background: url(../images/skill_bg.png) no-repeat;
+	background: url(images/skill_bg.png) no-repeat;
 }
 .skill_1 > .percent {
 	position: absolute;
 	font-size: 44px;
 	text-align: center;
-	background: url(../images/skill_text_bg.png) no-repeat;
+	background: url(images/skill_text_bg.png) no-repeat;
 	top: 32px;
 	right: -32px;
 	width: 150px;
@@ -82,13 +82,13 @@
 	width: 220px;
 	height: 220px;
 	margin: 0px auto;
-	background: url(../images/skill_bg.png) no-repeat;
+	background: url(images/skill_bg.png) no-repeat;
 }
 .skill_2 > .percent_2 {
 	position: absolute;
 	font-size: 44px;
 	text-align: center;
-	background: url(../images/skill_text_bg.png) no-repeat;
+	background: url(images/skill_text_bg.png) no-repeat;
 	top: 32px;
 	right: -32px;
 	width: 150px;
@@ -146,13 +146,13 @@
 	width: 220px;
 	height: 220px;
 	margin: 0px auto;
-	background: url(../images/skill_bg.png) no-repeat;
+	background: url(images/skill_bg.png) no-repeat;
 }
 .skill_3 > .percent_3 {
 	position: absolute;
 	font-size: 44px;
 	text-align: center;
-	background: url(../images/skill_text_bg.png) no-repeat;
+	background: url(images/skill_text_bg.png) no-repeat;
 	top: 32px;
 	right: -32px;
 	width: 150px;
@@ -210,13 +210,13 @@
 	width: 220px;
 	height: 220px;
 	margin: 0px auto;
-	background: url(../images/skill_bg.png) no-repeat;
+	background: url(images/skill_bg.png) no-repeat;
 }
 .skill_4 > .percent_4 {
 	position: absolute;
 	font-size: 44px;
 	text-align: center;
-	background: url(../images/skill_text_bg.png) no-repeat;
+	background: url(images/skill_text_bg.png) no-repeat;
 	top: 32px;
 	right: -32px;
 	width: 150px;

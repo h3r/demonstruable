@@ -172,7 +172,7 @@ body {
 	font-size: 20px;
 	line-height: 26px;
 	color: #000;
-	background: url(../images/bg_pattern.png) #fff;
+	background: url(images/bg_pattern.png) #fff;
 }
 a {
 	color: #000;
@@ -4445,26 +4445,26 @@ to {
 	width: 78px;
 	height: 77px;
 	margin-top: -20px;
-	background: url(../images/left.png);
+	background: url(images/left.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	margin-left: -20px;
 }
 .carousel-control:hover {
-	background: url(../images/left_hover.png);
+	background: url(images/left_hover.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 .carousel-control.right {
 	left: auto;
 	right: -20px;
-	background: url(../images/right.png);
+	background: url(images/right.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	
 }
 .carousel-control.right:hover {
-	background: url(../images/right_hover.png);
+	background: url(images/right_hover.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
