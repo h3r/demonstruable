@@ -45,7 +45,7 @@ html,body{
     margin-top:10px;
     border-image: url("../img/msg_background.png") 17 17 17 25 repeat;
     border-image-width: 17px;
-    border-image-slice:fill;
+    border-image-slice: 30% fill;
     /*background-image:url('images/12512.png');
     background-size:100% 100%;*/
 
