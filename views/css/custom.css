@@ -46,7 +46,7 @@ html,body{
     border-image: url("../img/msg_background.png") 17 17 17 25 repeat;
     border-image-width: 17px;
     border-image-slice: 30% fill;
-    display: inline-block;
+    width:intrinsic;
     /*background-image:url('images/12512.png');
     background-size:100% 100%;*/
 
@@ -64,4 +64,5 @@ html,body{
 }
 .message-content {
     margin-top:-12px;
+    display:inline-block;
 }
