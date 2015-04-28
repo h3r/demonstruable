@@ -60,6 +60,7 @@ canvas{
 canvas{
 	border:3px solid whitesmoke;
 	background-image:url("../imgs/bg_canvas_white.jpg");
+	width: 100%;
 }
 #send{
 	padding: 0;

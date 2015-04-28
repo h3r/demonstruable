@@ -126,8 +126,11 @@ function Lienzo($canvas){
 	this.simulatedDraw = function(strokes){
 	}
 	//load image into canvas
-	this.load = function(image){
-			this.canvas.src = image;
+	this.load = function($image){
+		var tmpImg = new Image();
+		tmpImg.src = $image;
+		this.clear();
+		this.context.drawImage(img,0, 0, this.canvas.width, this.canvas.height)
 	}
 	//clears canvas
 	this.clear = function(){
@@ -142,7 +145,7 @@ function Lienzo($canvas){
 	this.doMouseDown = function(e){
 		e.preventDefault();
 		//console.log(this);
-		var rect = this.canvas.getBoundingClientRect();
+		var rect = this.canvas.getClientRects()[0];
 
 		var mouseX = (e.pageX - rect.left)/this.canvas.width;
   		var mouseY = (e.pageY - rect.top)/this.canvas.height;
@@ -161,7 +164,7 @@ function Lienzo($canvas){
 		if(!this.pressing) 
 			return;
 
-		var rect = this.canvas.getBoundingClientRect();
+		var rect = this.canvas.getClientRects()[0];
 
 		var mouseX = (e.pageX - rect.left)/this.canvas.width;
   		var mouseY = (e.pageY - rect.top)/this.canvas.height;

@@ -52,6 +52,12 @@
       $('#app-content').load('views/home.html',
         function()
         {
+          function resizeCanvas(){
+            if($('canvas-wrapper')===undefined)
+              return;
+            $('canvas').height($('canvas').width()/1.41414141414141);
+          }
+
           $( "form" ).submit(
             function( event ) {
               event.preventDefault();
@@ -59,6 +65,9 @@
               myApp.join(form['user'], form['room']);
             }
         );
+
+          resizeCanvas();
+          $(window).resize=resizeCanvas;
       });
 
     </script>
