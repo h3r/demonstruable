@@ -1,4 +1,0 @@
--webkit-mask-image: url("../images/slider_mask.png");
-	-o-mask-image: url(../images/slider_mask.png);
-	-moz-mask-image: url(../images/slider_mask.png);
-	mask-image: url(../images/slider_mask.png);
