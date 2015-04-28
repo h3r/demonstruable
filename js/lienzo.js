@@ -131,11 +131,11 @@ function Lienzo($canvas){
 	}
 	//clears canvas
 	this.clear = function(){
-		this.canvas.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	};
 
 	this.getImg = function(){
-		return this.context.toDataURL();
+		return this.canvas.toDataURL();
 	}
 
 	//functions for local drawing and stroke array generation
