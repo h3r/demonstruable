@@ -109,7 +109,7 @@ function Lienzo($canvas){
 				continue;
 			}
 			this.selectTool(strokes[i].tool);
-			this.currentTool.draw(strokes[i],strokes[i+1]);
+			this.currentTool.draw({x:strokes[i].x*this.canvas.width,y:strokes[i].y*this.canvas.height},{x:strokes[i+1].x*this.canvas.width,y:strokes[i+1].y*this.canvas.height});
 			//console.log(strokes[i]['tool']);
 			/*this.context.globalCompositeOperation = strokes[i]['tool'].operation;
 		    this.context.beginPath();
@@ -127,10 +127,16 @@ function Lienzo($canvas){
 	}
 	//load image into canvas
 	this.load = function(image){
+			this.context.drawImage()
 	}
 	//clears canvas
 	this.clear = function(){
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	};
+
+	this.getImg = function(){
+		//var data this.context.getImageData(0,0,this.canvas.width,this.canvas.height);
+		//return 
 	}
 
 	//functions for local drawing and stroke array generation
@@ -139,8 +145,8 @@ function Lienzo($canvas){
 		//console.log(this);
 		var rect = this.canvas.getBoundingClientRect();
 
-		var mouseX = e.pageX - rect.left;
-  		var mouseY = e.pageY - rect.top;
+		var mouseX = (e.pageX - rect.left)/this.canvas.width;
+  		var mouseY = (e.pageY - rect.top)/this.canvas.height;
 
   		this.pressing = true;
   		this.oldPosition = {x:mouseX,y:mouseY, tool:this.currentTool.name};
@@ -158,8 +164,8 @@ function Lienzo($canvas){
 
 		var rect = this.canvas.getBoundingClientRect();
 
-		var mouseX = e.pageX - rect.left;
-		var mouseY = e.pageY - rect.top;
+		var mouseX = (e.pageX - rect.left)/this.canvas.width;
+  		var mouseY = (e.pageY - rect.top)/this.canvas.height;
 
 
 		this.strokes.push({x:mouseX,y:mouseY,tool:this.currentTool.name});
