@@ -145,10 +145,10 @@ function Lienzo($canvas){
 	this.doMouseDown = function(e){
 		e.preventDefault();
 		//console.log(this);
-		var rect = this.canvas.getClientRects()[0];
+		var rect = this.canvas.getBoundingClientRect();
 
-		var mouseX = (e.pageX - rect.left)/this.canvas.width;
-  		var mouseY = (e.pageY - rect.top)/this.canvas.height;
+		var mouseX = (e.clientX - rect.left)/this.canvas.width;
+  		var mouseY = (e.clientY - rect.top)/this.canvas.height;
 
   		this.pressing = true;
   		this.oldPosition = {x:mouseX,y:mouseY, tool:this.currentTool.name};
@@ -164,10 +164,10 @@ function Lienzo($canvas){
 		if(!this.pressing) 
 			return;
 
-		var rect = this.canvas.getClientRects()[0];
+		var rect = this.canvas.getBoundingClientRect();
 
-		var mouseX = (e.pageX - rect.left)/this.canvas.width;
-  		var mouseY = (e.pageY - rect.top)/this.canvas.height;
+		var mouseX = (e.clientX - rect.left)/this.canvas.width;
+  		var mouseY = (e.clientY - rect.top)/this.canvas.height;
 
 
 		this.strokes.push({x:mouseX,y:mouseY,tool:this.currentTool.name});
