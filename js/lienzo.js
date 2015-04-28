@@ -127,7 +127,7 @@ function Lienzo($canvas){
 	}
 	//load image into canvas
 	this.load = function(image){
-			this.context.drawImage()
+			this.context.src = image;
 	}
 	//clears canvas
 	this.clear = function(){
@@ -135,8 +135,7 @@ function Lienzo($canvas){
 	};
 
 	this.getImg = function(){
-		//var data this.context.getImageData(0,0,this.canvas.width,this.canvas.height);
-		//return 
+		return this.context.toDataURL();
 	}
 
 	//functions for local drawing and stroke array generation
