@@ -1,74 +1,61 @@
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
 
-    <title>Entorns de Comunicacio Virtual</title>
+    <!-- website title -->
+    <title>ECV - DeMonstruable</title>
+    <!-- favicon links -->
+    <link rel="shortcut icon" type="image/ico" href="views/img/favicon.ico" />
+    <link rel="icon" type="image/ico" href="views/img/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/cover.css" rel="stylesheet">
-    <link href="css/bootstrap-switch.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-
-  </head>
-
-  <body>
-
-    <div class="site-wrapper">
-      <div class="site-wrapper-inner">
-
-        <div class="row">
-          <div id="alert_placeholder">
-            <div id="alert_placeholder_inner" class="row">
-
-            </div>
-          </div>
-        </div>
-
-        <div id="app-content">
+    <!-- all stylesheets: main.css -->
+    <link href="views/css/main.css" rel="stylesheet" type="text/css" media="screen" id="style" />
+    <link href="views/css/custom.css" rel="stylesheet" type="text/css" media="screen" id="style" />
 
 
-        </div>
+    <!-- all BootStrap scripts codes: JS -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="js/external/bootstrap.js"> </script>
+    <script type="text/javascript" src="js/external/bx.js"> </script>
+    <script type="text/javascript" src="js/external/jquery.mixitup.min.js"></script>
+    <script type="text/javascript" src="js/external/custom.js"> </script>
+    <script type="text/javascript" src="js/external/ie.js"> </script>
 
+    <!-- Font  -->
+    <link href='http://fonts.googleapis.com/css?family=Cabin+Sketch:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
 
-        </div>
+    <!-- Preloader Start -->
+    <div id="preloader">
+        <div id="status">Loading </div>
     </div>
+    <!-- Preloader End -->
+    <div id="hs_top_wrap"> </div>
+    <!--Container-Start-->
+    <div id="index-content">
+    <p>Hola Mundo</p>
+    </div>
+    <!--Container-End-->
+    <div id="hs_bottom_wrap"> </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script>
-      $('#app-content').load('views/home.html',
-        function()
-        {
-          $( "form" ).submit(
-            function( event ) {
-              event.preventDefault();
-              var form = getFormData(this);
-              myApp.join(form['user'], form['room']);
-            }
-        );
-      });
 
-    </script>
-    <script src="js/bootstrap.min.js"></script>
-	<script src="js/simpleserver.js"></script>
-    <script src="js/bootstrap-switch.js"></script>
-	<!--<script src="js/code.js"></script>-->
-	<script src="js/tools.js"></script>
-    <script src="js/lienzo.js"></script>
-    <script src="js/game.js"></script>
-  </body>
+    <!-- Our Scripts :) Inverse Order -->
+
+
+    <!--models-->
+    <script type="text/javascript" src="js/models/drawing.js"> </script>
+    <script type="text/javascript" src="js/models/message.js"> </script>
+    <script type="text/javascript" src="js/models/player.js"> </script>
+
+    <!--controllers-->
+    <script type="text/javascript" src="js/game.js"> </script>
+
+    <!--Logic-->
+    <!--2--><script type="text/javascript" src="js/app.js"> </script>
+    <!--1--><script type="text/javascript" src="js/init.js"> </script>
+
+</body>
 </html>
-

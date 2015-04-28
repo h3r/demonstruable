@@ -1,0 +1,68 @@
+html,body{
+    height: 100%;
+}
+#index-content{
+    min-height: calc(99% - 94px);
+    padding-left:10px;
+    padding-right:10px;
+}
+@media (max-width: 767px) {
+    body {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+/**
+*   game-layout
+*/
+#game-layout-timer{}
+#game-layout-participants{
+    margin-top:-35px;
+    position:absolute;
+    height: calc(100% - 95px);
+    max-height:600px;
+}
+#game-layout-canvas{
+    margin:0;
+    padding:0;
+}
+#game-layout-toolbar{}
+
+.avatar{
+    padding-bottom:5px;
+
+}
+.avatar .avatarimg{
+    width:75px;
+    height:75px;
+    background-image:url("images/big_thumb.png"),url('../img/bear.jpg');
+    background-size: 100% 100%;
+}
+.avatar .message{
+    height:55px;
+    padding:5px;
+    margin-top:10px;
+    border-image: url("../img/msg_background.png") 17 17 17 25 repeat;
+    border-image-width: 17px;
+    border-image-slice: 30% fill;
+    width:intrinsic;
+    /*background-image:url('images/12512.png');
+    background-size:100% 100%;*/
+
+}
+.message > div{
+    margin: auto 5px;
+    display: inline-block;
+    min-width:32px;
+    max-height: 32px;
+    background-size:100%;
+    font-size:25px;
+}
+.hs_comma_second{
+    margin-top: 15px;
+}
+.message-content {
+    margin-top:-12px;
+    display:inline-block;
+}
