@@ -127,11 +127,11 @@ function Lienzo($canvas){
 	}
 	//load image into canvas
 	this.load = function(image){
-			this.context.src = image;
+			this.canvas.src = image;
 	}
 	//clears canvas
 	this.clear = function(){
-		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		this.canvas.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	};
 
 	this.getImg = function(){
