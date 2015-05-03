@@ -148,7 +148,7 @@ function Lienzo($canvas){
 	this.load = function($image){
 		console.log($image instanceof String);
 		var tmpImg = new Image();
-		tmpImg.src = "data:image/png;base64,"+$image.toString();
+		tmpImg.src = "data:image/jpeg;base64,"+$image.toString();
 		this.clear();
 		this.context.drawImage(tmpImg,0, 0, this.canvas.width, this.canvas.height);
 	};
@@ -158,7 +158,7 @@ function Lienzo($canvas){
 	};
 
 	this.getImg = function(){
-		var uri = this.canvas.toDataURL('image/png');
+		var uri = this.canvas.toDataURL("image/jpeg", 0.6);
 		return uri.slice(uri.indexOf(',') + 1);
 	}
 
