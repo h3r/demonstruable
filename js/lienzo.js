@@ -14,11 +14,16 @@ function Tool($name, $draw){
 };
 
 function Lienzo($canvas){
-	var that = this;
-	//tools
-	//this.eraser = new Tool(10,"rgba(0,0,0,1)", "destination-out");
-	//this.ink = new Tool(2,"rgba(0,0,0,0.9)","source-over");
 
+	var that = this;
+
+	this.oW = 840;
+	this.oH = 594;
+
+	this.scaleX=1.0;
+	this.scaleY=1.0;
+
+	//tools
 	this.eraser = new Tool('eraser',
 		function($a,$b){
 			//that.context.lineJoin = "round";
@@ -93,6 +98,20 @@ function Lienzo($canvas){
 	this.canvas = document.getElementById($canvas);
 	this.context = this.canvas.getContext("2d");
 
+
+	//this.oldHeight = document;
+
+
+	this.resizeCanvas = function(){
+
+		that.scaleX = that.oW  / that.canvas.offsetWidth;
+		that.scaleY = that.oH / that.canvas.offsetHeight;
+
+
+	};
+	that.resizeCanvas();
+	$(window).resize(that.resizeCanvas);
+
 	this.selectTool=function($tool){
 		this.currentTool = this[$tool];
 	};
@@ -109,29 +128,30 @@ function Lienzo($canvas){
 				continue;
 			}
 			this.selectTool(strokes[i].tool);
-			this.currentTool.draw({x:strokes[i].x*this.canvas.width,y:strokes[i].y*this.canvas.height},{x:strokes[i+1].x*this.canvas.width,y:strokes[i+1].y*this.canvas.height});
-			//console.log(strokes[i]['tool']);
-			/*this.context.globalCompositeOperation = strokes[i]['tool'].operation;
-		    this.context.beginPath();
-		  	this.context.moveTo(strokes[i].x, strokes[i].y);
-		    this.context.lineTo(strokes[i+1].x, strokes[i+1].y);
-    		this.context.closePath();
-    		this.context.strokeStyle = strokes[i]['tool'].style;
-    		this.context.lineWidth = strokes[i]['tool'].radius;
- 			this.context.stroke();*/
+
+			this.currentTool.draw(
+				{
+					x:strokes[i].x * this.canvas.width,
+					y:strokes[i].y * this.canvas.height
+				},
+				{
+					x:strokes[i+1].x * this.canvas.width,
+					y:strokes[i+1].y * this.canvas.height
+				});
   		}
 	};
 
 	//Draw function that simulates drawing
 	this.simulatedDraw = function(strokes){
-	}
+	};
 	//load image into canvas
 	this.load = function($image){
+		console.log($image instanceof String);
 		var tmpImg = new Image();
-		tmpImg.src = $image;
+		tmpImg.src = $image.toString();
 		this.clear();
-		this.context.drawImage(img,0, 0, this.canvas.width, this.canvas.height)
-	}
+		this.context.drawImage(tmpImg,0, 0, this.canvas.width, this.canvas.height);
+	};
 	//clears canvas
 	this.clear = function(){
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -147,12 +167,25 @@ function Lienzo($canvas){
 		//console.log(this);
 		var rect = this.canvas.getBoundingClientRect();
 
-		var mouseX = (e.clientX - rect.left)/this.canvas.width;
-  		var mouseY = (e.clientY - rect.top)/this.canvas.height;
-
+		var mouseX = ( e.clientX - rect.left ) / this.canvas.width*this.scaleX;
+  		var mouseY = ( e.clientY - rect.top  ) / this.canvas.height*this.scaleY;
+		console.log(e.clientX - rect.left);
+		console.log( this.canvas.width);
+		console.log( $('#lienzo').width());
   		this.pressing = true;
-  		this.oldPosition = {x:mouseX,y:mouseY, tool:this.currentTool.name};
-		this.draw([this.oldPosition, {x:mouseX,y:mouseY,tool:this.currentTool.name}]);
+  		this.oldPosition = {
+			x: mouseX,
+			y: mouseY,
+			tool: this.currentTool.name
+		};
+		this.draw([
+				this.oldPosition,
+				{
+					x: mouseX,
+					y: mouseY,
+					tool: this.currentTool.name
+				}
+		]);
 
 		//console.log(this.oldPosition);
   		this.strokes.push(this.oldPosition);
@@ -166,13 +199,18 @@ function Lienzo($canvas){
 
 		var rect = this.canvas.getBoundingClientRect();
 
-		var mouseX = (e.clientX - rect.left)/this.canvas.width;
-  		var mouseY = (e.clientY - rect.top)/this.canvas.height;
+		var mouseX = (e.clientX - rect.left) / this.canvas.width * this.scaleX;
+  		var mouseY = (e.clientY - rect.top) /  this.canvas.height * this.scaleY;
 
+		var stroke = {
+			x:mouseX,
+			y:mouseY,
+			tool:this.currentTool.name
+		};
 
-		this.strokes.push({x:mouseX,y:mouseY,tool:this.currentTool.name});
-		this.draw([this.oldPosition, {x:mouseX,y:mouseY,tool:this.currentTool.name}]);
-		this.oldPosition = {x:mouseX,y:mouseY,tool:this.currentTool.name};
+		this.strokes.push(stroke);
+		this.draw([this.oldPosition, stroke]);
+		this.oldPosition = stroke;
 
 	};
 
@@ -200,5 +238,7 @@ function Lienzo($canvas){
 		this.canvas.parentNode.replaceChild(clonCanvas, this.canvas);
 		this.canvas = clonCanvas;
 	 	this.context = this.canvas.getContext("2d");
-	}
+	};
+
+
 }

@@ -23,6 +23,7 @@ function Room($roomName,$player){
 	this.isUpdated = false;
 
 	this.gameIntervalUpdater = {};
+	this.gameIntervalSendCurrentDrawing = {};
 	//that.room = new Room();
 	//console.log(that.server);
 	//that.room.players = that.server.getRoomInfo();
@@ -38,13 +39,24 @@ Room.prototype = {
 		this.startRound();
 	},
 	startRound: function(){
+		var that = this;
+
 		if(this.whoPaints+'' == this.player.id){
 			this.lienzo.setAsPainter();
+
+			this.gameIntervalSendCurrentDrawing = setInterval(function(){
+				var img = that.lienzo.getImg();
+				console.log(img);
+				myApp.server.storeData(that.name,img);
+			},3000);
+
 		}else{
 			this.lienzo.setAsPlayer();
+				myApp.server.loadData(that.name,function($data){
+					that.lienzo.load($data);
+				});
 			return;
 		}
-		var that = this;
 		this.gameIntervalUpdater = setInterval(function(){
 			//console.log(this.lienzo.stroke);
 			if(!that.lienzo.strokes || that.lienzo.strokes.length == 0)
