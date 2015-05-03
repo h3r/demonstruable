@@ -158,7 +158,8 @@ function Lienzo($canvas){
 	};
 
 	this.getImg = function(){
-		return this.canvas.toDataURL();
+		var uri = this.canvas.toDataURL('image/png');
+		return uri.slice(uri.indexOf(',') + 1);
 	}
 
 	//functions for local drawing and stroke array generation
