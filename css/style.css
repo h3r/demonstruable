@@ -103,8 +103,40 @@ canvas{
 	bottom: 0px;
 }
 /*----------CHAT---------------------------------------------*/
-#chat-wrapper * {
+#chat-content-row{
+	overflow:hidden;
+	position:relative;
 
+}
+#chat-content{
+	position:absolute;
+	bottom:0;
+	left:0;
+}
+
+
+.chat-item{
+	background-color: #f3f1f2;
+	color: #493e3c;
+	padding: 10px;
+	border-radius: 15px 30px 5px 15px;
+}
+
+
+.chat-avatar img{
+	background-color: #ffffff;
+	padding:2px;
+	border-radius: 3px 5px 5px 5px;
+}
+
+.chat-item .whisper{
+	color: white;
+	background-color: #f3a298;
+}
+.whisper:before {
+	font-size: 0.85em;
+	color: #493e3c;
+	content:  "whispers: ";
 }
 
 /*

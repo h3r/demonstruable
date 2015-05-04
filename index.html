@@ -47,6 +47,17 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>
+      $(window).resize(function(e)
+      {
+
+        if($('#lienzo').length > 0 && $('#chat-content-row').length > 0){
+          console.log($('#chat-content-row').height());
+          console.log($('#lienzo').height());
+          $('#chat-content-row').height($('#lienzo').height()-49); //minus input height
+        }
+
+      });
+      $(window).resize();
       $('#app-content').load('views/home.html',
         function()
         {
@@ -66,7 +77,7 @@
         );
 
 
-          //$(window).resize=resizeCanvas;
+
       });
 
     </script>

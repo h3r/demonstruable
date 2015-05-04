@@ -61,7 +61,10 @@ Room.prototype = {
 			this.startRound();
 		}
 	},
-
+	getAvatar: function($id){
+		console.log($id);
+		return 1;
+	},
 	startRound: function($offsetTime){
 		
 		console.log('Inicio de partida');
@@ -206,8 +209,19 @@ App.prototype =  {
 		this.server.sendMessage(msg);
 	},
 
-	sendChatMessage: function($msg){
-		this.server.sendMessage({type:'chat',data:$msg});
+	sendChatMessage: function($msg,$type){
+		if($msg === '')
+			return;
+		this.server.sendMessage({type:'chat',data:{type:$type,data:$msg}});
+		$type = (!$type || $type == '')? '' : 'whisper';
+		var el = '<div class="chat-item '+ $type +' col-xs-9" style="vertical-align:bottom ">' + $msg + '</div>' +
+			'<figure class="chat-avatar col-xs-3">'+
+			'<img src="imgs/cards/avatar_'+ 1 +'.jpg" alt="avatar"  width="42">'+
+			'<figcaption>Unknown</figcaption>'+
+			'</figure>';
+		$('#chat-content').append(el);
+
+
 	},
 
 	msgManager : function($autor,$msg){
@@ -295,6 +309,13 @@ App.prototype =  {
 				break;
 			case 'chat':
 				console.log('msg: chat message');
+				var el = '<div class="chat-item '+msg['data']['type']+' col-xs-9" style="vertical-align:bottom ">' + msg['data']['data'] + '</div>' +
+					'<figure class="chat-avatar col-xs-3">'+
+						'<img src="imgs/cards/avatar_'+ this.room.getAvatar($autor) +'.jpg" alt="avatar"  width="42">'+
+						'<figcaption>Unknown</figcaption>'+
+					'</figure>';
+				$('#chat-content').append(el);
+
 				break;
 
 
