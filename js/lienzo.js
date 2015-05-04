@@ -146,7 +146,9 @@ function Lienzo($canvas){
 	};
 	//load image into canvas
 	this.load = function($image){
-		console.log($image instanceof String);
+		if(!($image instanceof String))
+			$image = $image.toString();
+
 		var tmpImg = new Image();
 		tmpImg.src = $image;//.toString(); "data:image/jpeg;base64,"
 		this.clear();
@@ -160,19 +162,18 @@ function Lienzo($canvas){
 	this.getImg = function(){
 		var uri = this.canvas.toDataURL();
 		return uri;//.slice(uri.indexOf(',') + 1);
-	}
+	};
+
 
 	//functions for local drawing and stroke array generation
 	this.doMouseDown = function(e){
 		e.preventDefault();
-		//console.log(this);
+
 		var rect = this.canvas.getBoundingClientRect();
 
 		var mouseX = ( e.clientX - rect.left ) / this.canvas.width*this.scaleX;
   		var mouseY = ( e.clientY - rect.top  ) / this.canvas.height*this.scaleY;
-		console.log(e.clientX - rect.left);
-		console.log( this.canvas.width);
-		console.log( $('#lienzo').width());
+
   		this.pressing = true;
   		this.oldPosition = {
 			x: mouseX,
@@ -188,7 +189,6 @@ function Lienzo($canvas){
 				}
 		]);
 
-		//console.log(this.oldPosition);
   		this.strokes.push(this.oldPosition);
 	};
 
@@ -226,7 +226,7 @@ function Lienzo($canvas){
 
 	this.setAsPainter = function(){
 		console.log('setAsPainter');
-		this.clear();
+		//this.clear();
 		this.canvas.addEventListener("mousedown",this.doMouseDown.bind(this),false);
 		this.canvas.addEventListener("mousemove",this.doMouseMove.bind(this),false);
 		this.canvas.addEventListener("mouseup",this.doMouseUp.bind(this),false);
