@@ -33,6 +33,7 @@ Room.prototype = {
 	init: function($roomInfo){
 
 		this.lienzo = new Lienzo('lienzo');
+		this.highestNumber = Math.random();
 
 		if(!this.isUpdated){
 			this.init();
@@ -114,7 +115,7 @@ Room.prototype = {
 			this.lienzo.setAsPlayer();
 			var that = this;
 		}
-		setTimeout(this.endGame.bind(this), 60000-dt);
+		setTimeout(this.endGame.bind(this), 5000-dt);
 	},
 
 	endGame: function($offsetTime){
@@ -134,6 +135,7 @@ Room.prototype = {
 		//animacion "seleccionando el siguiente jugador"
 		
 		this.highestNumber = Math.random();
+		this.whoPaints = this.player.id;
 		setTimeout(this.startRound.bind(this), 5000-dt);
 	},
 
@@ -286,8 +288,8 @@ App.prototype =  {
 					this.room.whoPaints = $autor;
 					console.log("it's not my turn :(");
 				}else {
-					this.room.whoPaints = this.room.player.id;
-					console.log("it's my turn! :)");
+					//this.room.whoPaints = this.room.player.id;
+					//console.log("it's my turn! :)");
 				}
 
 				break;
