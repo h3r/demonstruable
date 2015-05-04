@@ -7,13 +7,21 @@
 var DEBUG = true;
 var myApp;
 
-var words = ["frankfurt","banana","jedi","murcielago","elefante","caramelo","helado","coche","futbol","television","bicicleta","cine","satelite","batman","godzilla","cthulhu","flash","bruja","mickey","helicoptero","rosa","cazafantasmas","coyote","jirafa","zebra","tortuga","hamburguesa","manzana","reloj","brujula","calabaza","jesus","africa","USA","abeja","teatro","doctor","tijeras","profesor","karateka","atlas","demonio","goku","arale","libertad","odio","furia","esclavitud","amor","hierro","jaqueca","astilla","resfriado","muerte","guerra","pestilencia","hambre","casino","pendrive","dvd","luna","licantropia","ajo","grimorio","prision","presidente","pie","zapato","alfiler","alfombra","nesquik","nocilla","quijote","queso","jamon","almendras","cacahuetes","conejo","leon","tigre","grifo"];
+var words = ["frankfurt","banana","jedi","murcielago","elefante","caramelo","helado","coche","futbol",
+	"television","bicicleta","cine","satelite","batman","godzilla","cthulhu","flash","bruja","mickey",
+	"helicoptero","rosa","cazafantasmas","coyote","jirafa","zebra","tortuga","hamburguesa","manzana",
+	"reloj","brujula","calabaza","jesus","africa","USA","abeja","teatro","doctor","tijeras","profesor",
+	"karateka","atlas","demonio","goku","arale","libertad","odio","furia","esclavitud","amor","hierro",
+	"jaqueca","astilla","resfriado","muerte","guerra","pestilencia","hambre","casino","pendrive","dvd",
+	"luna","licantropia","ajo","grimorio","prision","presidente","pie","zapato","alfiler","alfombra",
+	"nesquik","nocilla","quijote","queso","jamon","almendras","cacahuetes","conejo","leon","tigre","grifo"];
 
 
 function Player($id,$name){
 	this.id = $id;
 	this.name = $name || '';
 	this.avatar = Math.floor( Math.random() * (8 - 0));
+	this.lvl = 0;
 }
 function Room($roomName,$player){
 
@@ -22,6 +30,7 @@ function Room($roomName,$player){
 	this.lienzo;// = new Lienzo('lienzo');
 	this.whoPaints;
 	this.players = [];
+	this.playerNames = {};
 	this.isUpdated = false;
 	this.info = {state:'start', timeStamp:null};
 	this.canvasSnapshot = null;
@@ -62,12 +71,24 @@ Room.prototype = {
 		}
 	},
 	getAvatar: function($id){
-		console.log($id);
+		if(this.playerNames[$id])
+			return this.playerNames[$id].avatar;
 		return 1;
 	},
+	getName: function($id){
+		if(this.playerNames[$id])
+			return this.playerNames[$id].name;
+		return 'unknown';
+	},
+	setTimer: function($time){
+				$("#timer").animate({width:"100%"},0).delay(100).animate({width:"0%"},$time);;
+
+	},
 	startRound: function($offsetTime){
-		
+
 		console.log('Inicio de partida');
+
+		$("#current-word").html("Be prepared!!!");
 		this.info = {state:'start', timeStamp: new Date()};
 
 		this.lienzo.clear();
@@ -75,6 +96,7 @@ Room.prototype = {
 
 		//this will be the word used if I end up being the painter:
 		this.currentWord = words[Math.floor(Math.random()*words.length)];
+
 		
 		myApp.server.sendMessage({type:'turnSelector', data:this.highestNumber});
 		
@@ -85,11 +107,14 @@ Room.prototype = {
 		}
 
 		//Create new Timeout
+		this.setTimer(5000-dt);
 		setTimeout(this.playing.bind(this),5000-dt);
 	},
 
 	playing: function($offsetTime){
 		console.log('Jugando');
+		$("#current-word").html("???");
+
 		if(this.canvasSnapshot){
 			this.lienzo.load(this.canvasSnapshot);
 		}
@@ -102,6 +127,7 @@ Room.prototype = {
 
 		if(this.whoPaints+'' == this.player.id){
 			this.lienzo.setAsPainter();
+			$('#current-word').html(this.currentWord);
 			
 			//showtools
 			var that = this;
@@ -115,10 +141,12 @@ Room.prototype = {
 
 
 		}else{
+
 			this.lienzo.setAsPlayer();
 			var that = this;
 		}
-		setTimeout(this.endGame.bind(this), 5000-dt);
+		this.setTimer(60000-dt);
+		setTimeout(this.endGame.bind(this), 60000-dt);
 	},
 
 	endGame: function($offsetTime){
@@ -139,13 +167,24 @@ Room.prototype = {
 		
 		this.highestNumber = Math.random();
 		this.whoPaints = this.player.id;
-		setTimeout(this.startRound.bind(this), 5000-dt);
+		//this.setTimer(1000-dt);
+		setTimeout(this.startRound.bind(this), 1000-dt);
 	},
 
 	draw: function($data){
 		if(!this.lienzo || this.whoPaints+'' == this.player.id)
 			return;
 		this.lienzo.draw($data);
+	},
+
+	reward: function($id,$word){
+		if($id == this.player.id){
+			this.player.lvl++;
+			showAlert('You won!','alert-success');
+			return;
+		}
+		this.playerNames[$id].lvl++;
+		showAlert(this.getName($id)+' won with: '+$word,'alert-success');
 	}
 };
 
@@ -216,8 +255,8 @@ App.prototype =  {
 		$type = (!$type || $type == '')? '' : 'whisper';
 		var el = '<div class="chat-item '+ $type +' col-xs-9" style="vertical-align:bottom ">' + $msg + '</div>' +
 			'<figure class="chat-avatar col-xs-3">'+
-			'<img src="imgs/cards/avatar_'+ 1 +'.jpg" alt="avatar"  width="42">'+
-			'<figcaption>Unknown</figcaption>'+
+			'<img src="imgs/cards/avatar_'+ this.room.player.avatar +'.jpg" alt="avatar"  width="42">'+
+			'<figcaption>'+this.room.player.name+'</figcaption>'+
 			'</figure>';
 		$('#chat-content').append(el);
 
@@ -253,6 +292,11 @@ App.prototype =  {
 					type: 'player',
 					data: this.room.player
 				}), [msg['data'].id]);
+				this.room.playerNames[ msg['data'].id ] = msg['data'];
+				break;
+			case 'player':
+				console.log('msg:player');
+				this.room.playerNames[ msg['data'].id ] = msg['data'];
 				break;
 			case 'stroke':
 				console.log('msg:stroke');
@@ -295,6 +339,9 @@ App.prototype =  {
 				if (this.room.whoPaints + '' == $autor)
 					this.refreshRoomPlayers();
 				break;
+				if(this.room.playerNames[$autor+''])
+					delete this.room.playerNames[$autor+''];
+
 				
 			case 'turnSelector':
 				if (msg['data'] > this.room.highestNumber){
@@ -308,15 +355,25 @@ App.prototype =  {
 
 				break;
 			case 'chat':
+				if (this.room.whoPaints + '' == this.room.player.id){
+					if(msg['data']['data'] == this.room.currentWord)
+						this.room.reward($autor,msg['data']['data']);
+					this.server.sendMessage({type:'winner',data:{who:$autor,word:msg['data']['data']}});
+				}
 				console.log('msg: chat message');
 				var el = '<div class="chat-item '+msg['data']['type']+' col-xs-9" style="vertical-align:bottom ">' + msg['data']['data'] + '</div>' +
 					'<figure class="chat-avatar col-xs-3">'+
 						'<img src="imgs/cards/avatar_'+ this.room.getAvatar($autor) +'.jpg" alt="avatar"  width="42">'+
-						'<figcaption>Unknown</figcaption>'+
+						'<figcaption>'+this.room.getName($autor)+'</figcaption>'+
 					'</figure>';
 				$('#chat-content').append(el);
 
 				break;
+			case 'winner':
+				console.log('msg:winner');
+				this.room.reward( msg['data']['who'], msg['data']['word']);
+				break;
+
 
 
 		}

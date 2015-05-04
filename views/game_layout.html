@@ -8,14 +8,15 @@
 
         <div class="row">
 
-            <div class="col-xs-12"><h1>TIMER</h1></div>
+            <div class="col-xs-12"><h2 id="current-word"></h2></div>
+            <div id="timer" class="col-xs-12"  style="vertical-align: top;"></div>
+
             <canvas id="lienzo" width="840" height="594" class="col-xs-12"></canvas>
             <div id = "toolbox" class="col-xs-12"  style="vertical-align: bottom;">
                 <img id ="eraser" class="tool" src="imgs/tools/ERASER.png" />
                 <img id ="marker" class="tool" src="imgs/tools/MARKER.png" />
                 <img id ="brush" class="tool current" src="imgs/tools/BRUSH.png" />
             </div>
-
 
         </div>
 
@@ -58,7 +59,7 @@
     function submit($msg){
         myApp.sendChatMessage($msg);
         var myDiv = $("#chat_text").get(0);
-        myDiv.scrollTop = myDiv.scrollHeight;
+        //myDiv.scrollTop = myDiv.scrollHeight;
     }
     $('#chat-submit').click(function(e){
         e.preventDefault();

@@ -119,7 +119,7 @@ canvas{
 	background-color: #f3f1f2;
 	color: #493e3c;
 	padding: 10px;
-	border-radius: 15px 30px 5px 15px;
+	border-radius: 20px 35px 5px 20px;
 }
 
 
@@ -138,6 +138,18 @@ canvas{
 	color: #493e3c;
 	content:  "whispers: ";
 }
+
+#timer{
+	height:3px;
+	pointer-events: none;
+	overflow: hidden;
+	width:100%;
+	background-color: red;
+	margin-bottom : -3px;
+	padding: 1px;
+	z-index: 1000;
+}
+
 
 /*
 .hide-overflow{
