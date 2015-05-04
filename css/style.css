@@ -21,6 +21,7 @@ body{
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+	overflow-x: hidden; 
 }
 
 .logo{
@@ -60,10 +61,20 @@ canvas{
 
 #canvas-wrapper{
 	/*position: relative;*/
+	overflow: hidden; 
+	padding : 0;
+	margin: 0 ;
 }
 
 #timer{
 	
+}
+
+#chat-display{
+	background: rgba(0, 0, 0, 0.5);
+	overflow: hidden; 
+	text-align: left !important;
+
 }
 
 #toolbox{
@@ -74,6 +85,16 @@ canvas{
 	overflow: hidden;
 	pointer-events: none;
 }
+
+#chatbox{
+	position: absolute;
+	bottom: 5px;
+	left: 0; /* calc(50% - 180px/2);*/
+	width: 180px;	
+	overflow: hidden;
+	color: black;
+}
+
 
 .tool{
 	position: relative;
@@ -112,12 +133,21 @@ canvas{
 /* centered columns styles */
 .row-centered {
 	text-align:center;
+	display: table;
 }
 .col-centered {
-	display:inline-block;
+	display:table-cell;
 	float:none;
 	/* reset the text-align */
 	text-align:center;
 	/* inline-block space fix */
 	margin-right:-4px;
+}
+
+.hide-overflow{
+	overflow:hidden;	
+}
+
+.name-chat{
+	font-weight: bold;	
 }

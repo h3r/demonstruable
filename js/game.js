@@ -26,7 +26,7 @@ function Room($roomName,$player){
 	this.info = {state:'start', timeStamp:null};
 	this.canvasSnapshot = null;
 	this.gameIntervalUpdater = {};
-
+	this.currentWord = '';
 	this.highestNumber = Math.random();
 }
 Room.prototype = {
@@ -62,13 +62,15 @@ Room.prototype = {
 	},
 
 	startRound: function($offsetTime){
-
+		
 		console.log('Inicio de partida');
 		this.info = {state:'start', timeStamp: new Date()};
 
 		this.lienzo.clear();
 
-		console.log("My number is: " +  this.highestNumber);
+		//this will be the word used if I end up being the painter:
+		this.currentWord = words[Math.floor(Math.random()*words.length)];
+		
 		myApp.server.sendMessage({type:'turnSelector', data:this.highestNumber});
 		
 		var dt = 0.0;
@@ -92,7 +94,7 @@ Room.prototype = {
 
 		if(this.whoPaints+'' == this.player.id){
 			this.lienzo.setAsPainter();
-
+			
 			//showtools
 			var that = this;
 			this.gameIntervalUpdater = setInterval(function(){
@@ -106,6 +108,7 @@ Room.prototype = {
 
 		}else{
 			this.lienzo.setAsPlayer();
+			var that = this;
 		}
 		setTimeout(this.endGame.bind(this), 10000-dt);
 	},
@@ -142,7 +145,7 @@ function App(){
 	this.room;
 
 	this.server.on_user_disconnected = function(e){
-		this.msgManager(e, {
+		this.server.msgManager(e, {
 				type:'disconnected',
 				data:null
 		});
@@ -276,6 +279,10 @@ App.prototype =  {
 				}
 
 				break;
+			case 'chatMSG':
+				document.getElementById('chat-display').innerHTML+='<div><span class="name-chat">'+msg['data']['name']+': </span>'+msg['data']['content']+'</div'
+			break;
+
 		}
 	}
 

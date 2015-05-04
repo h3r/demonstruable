@@ -130,12 +130,17 @@ function Lienzo($canvas){
 	document.getElementById("marker").addEventListener("mousedown",function(){that.selectTool("marker")},false);
 	document.getElementById("brush").addEventListener("mousedown",function(){that.selectTool("brush")},false);
 	
+	this.submitBox = document.getElementById("chatbox");
+
 	
 	this.hideToolBox = function(){
 		that.toolBox.className = "hidden";
+		//that.submitBox.className = "";
+		//that.submitBox.focus();
 	};
 	this.showToolBox = function(){
 		that.toolBox.className = "";
+		//that.submitBox.className = "hidden";
 	};
 	
 	//simple draw function
@@ -145,7 +150,7 @@ function Lienzo($canvas){
 			return false;
 
 		for(var i=0; i<strokes.length; ++i){
-			if(!strokes[i+1]){
+			if(!strokes[i+1] || !strokes[i]){
 				return;
 			}else if(strokes[i].mouseUp){
 				continue;
@@ -265,7 +270,12 @@ function Lienzo($canvas){
 		this.canvas.parentNode.replaceChild(clonCanvas, this.canvas);
 		this.canvas = clonCanvas;
 	 	this.context = this.canvas.getContext("2d");
-	};
+	}
+
+	
+	/*this.writeMsg = function($name, $msg){
+		
+	};*/
 
 
 }
