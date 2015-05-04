@@ -250,6 +250,8 @@ function Lienzo($canvas){
 	this.setAsPainter = function(){
 		console.log('setAsPainter');
 		//this.clear();
+		this.showToolBox();
+		this.selectTool("marker");
 		this.canvas.addEventListener("mousedown",this.doMouseDown.bind(this),false);
 		this.canvas.addEventListener("mousemove",this.doMouseMove.bind(this),false);
 		this.canvas.addEventListener("mouseup",this.doMouseUp.bind(this),false);
@@ -258,6 +260,7 @@ function Lienzo($canvas){
 
 	this.setAsPlayer = function(){
 		console.log('setAsPlayer');
+		this.hideToolBox();
 		var clonCanvas = this.canvas.cloneNode(true);
 		this.canvas.parentNode.replaceChild(clonCanvas, this.canvas);
 		this.canvas = clonCanvas;

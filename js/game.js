@@ -4,10 +4,12 @@
 'use strict';
 
 
-
-
 var DEBUG = true;
 var myApp;
+
+var words = ["frankfurt","banana","jedi","murcielago","elefante","caramelo","helado","coche","futbol","television","bicicleta","cine","satelite","batman","godzilla","cthulhu","flash","bruja","mickey","helicoptero","rosa","cazafantasmas","coyote","jirafa","zebra","tortuga","hamburguesa","manzana","reloj","brujula","calabaza","jesus","africa","USA","abeja","teatro","doctor","tijeras","profesor","karateka","atlas","demonio","goku","arale","libertad","odio","furia","esclavitud","amor","hierro","jaqueca","astilla","resfriado","muerte","guerra","pestilencia","hambre","casino","pendrive","dvd","luna","licantropia","ajo","grimorio","prision","presidente","pie","zapato","alfiler","alfombra","nesquik","nocilla","quijote","queso","jamon","almendras","cacahuetes","conejo","leon","tigre","grifo"];
+
+
 function Player($id,$name){
 	this.id = $id;
 	this.name = $name || '';
@@ -25,6 +27,7 @@ function Room($roomName,$player){
 	this.canvasSnapshot = null;
 	this.gameIntervalUpdater = {};
 
+	this.highestNumber = Math.random();
 }
 Room.prototype = {
 	init: function($roomInfo){
@@ -65,6 +68,9 @@ Room.prototype = {
 
 		this.lienzo.clear();
 
+		console.log("My number is: " +  this.highestNumber);
+		myApp.server.sendMessage({type:'turnSelector', data:this.highestNumber});
+		
 		var dt = 0.0;
 		if($offsetTime){
 			dt = new Date() - new Date($offsetTime);
@@ -101,7 +107,7 @@ Room.prototype = {
 		}else{
 			this.lienzo.setAsPlayer();
 		}
-		setTimeout(this.endGame.bind(this), 60000-dt);
+		setTimeout(this.endGame.bind(this), 10000-dt);
 	},
 
 	endGame: function($offsetTime){
@@ -113,8 +119,10 @@ Room.prototype = {
 			this.info.timeStamp = $offsetTime;
 		}
 		clearTimeout(this.gameIntervalUpdater);
-		//hidetools
+		this.lienzo.setAsPlayer();
 		//animacion "seleccionando el siguiente jugador"
+		
+		this.highestNumber = Math.random();
 		setTimeout(this.startRound.bind(this), 5000-dt);
 	},
 
@@ -255,6 +263,18 @@ App.prototype =  {
 			case 'disconnected':
 				if (this.room.whoPaints + '' == $autor)
 					this.refreshRoomPlayers();
+				break;
+				
+			case 'turnSelector':
+				if (msg['data'] > this.room.highestNumber){
+					this.room.highestNumber = msg['data'];
+					this.room.whoPaints = $autor;
+					console.log("it's not my turn :(");
+				}else {
+					this.room.whoPaints = this.room.player.id;
+					console.log("it's my turn! :)");
+				}
+
 				break;
 		}
 	}
