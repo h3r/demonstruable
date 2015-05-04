@@ -1,41 +1,84 @@
+<div class="row row-centered">
+    <div class="col-xs-10 col-sm-1 col-lg-3 col-centered "
+         style="vertical-align: bottom; height:100%; background: magenta">
+        Hey1
+    </div>
 
-    <div class="row row-centered hide-overflow">
-        <div id = "chat-display" class="col-xs-1 col-md-1 col-lg-3 col-centered"
-             style="vertical-align: top; height:100%">Welcome to deMonstruable...</div>
-        <div id="canvas-wrapper" class="col-xs-10 col-md-10 col-lg-8 col-centered" >
-            <canvas id="lienzo" width="840" height="594">
-            </canvas>
-      			<div id = "toolbox" class="hidden" >
-      				<img id ="eraser" class="tool" src="imgs/tools/ERASER.png" />
-      				<img id ="marker" class="tool" src="imgs/tools/MARKER.png" />
-      				<img id ="brush" class="tool current" src="imgs/tools/BRUSH.png" />
-      			</div>
-            <div id = "chatbox" class="" >
-             <input id = "chatboxmsg" type="text" placeholder="Type something…">
+    <div id="canvas-wrapper" class="col-xs-10 col-sm-7 col-lg-6 col-centered " >
+
+        <div class="row">
+
+            <div class="col-xs-12"><h1>TIMER</h1></div>
+            <canvas id="lienzo" width="840" height="594" class="col-xs-12"></canvas>
+            <div id = "toolbox" class="col-xs-12"  style="vertical-align: bottom;">
+                <img id ="eraser" class="tool" src="imgs/tools/ERASER.png" />
+                <img id ="marker" class="tool" src="imgs/tools/MARKER.png" />
+                <img id ="brush" class="tool current" src="imgs/tools/BRUSH.png" />
             </div>
-			
-			 </div>
-        <!--<div class="col-xs-1 col-md-1 col-lg-1 col-centered"
-             style="vertical-align: top;">Hey</div>-->
-        <!--
-        <p class="lead" id="server_info">No conectado</p>
-        <canvas id='mycanvas' class="col-sm-10"></canvas>
-        <form id='send' class="col-sm-8">
-          <div class="form-group">
-            <input type="text" id="msg" name="msg" class="form-control" placeholder="Your guessings..." value=''>
-            <button type="submit" id="send-btn" name="send-btn" class="btn-sm btn-default" value='Submit'>
-            Send</button>
-          </div>
-        </form>-->
 
-        <script>
-        $("#chatbox").keyup(function (e) {
-          if (e.keyCode == 13) {
-              document.getElementById('chat-display').innerHTML+='<div><span class="name-chat">'+myApp.room.player.name+': </span>'+$("#chatboxmsg").val()+'</div';
-              myApp.server.sendMessage({type:'chatMSG', data:{name:myApp.room.player.name,content:$("#chatboxmsg").val()}});
-              $("#chatbox").val = '';
-          }
-          });
-        </script>
+
+        </div>
+
+    </div>
+
+    <div class="col-xs-10 col-sm-3 col-lg-3 col-centered" style="vertical-align: bottom; height: 100%; background: magenta">
+        <div id="chat-wrapper">
+            <div class="row" >
+
+                <div id='chat-content' class="col-xs-12 col-centered" style="background: aquamarine"></div>
+
+            </div>
+            <div id='chat-tools' class="row">
+                <div class="col-xs-10 col-centered"  style="background: orange; vertical-align: bottom;">
+
+                    <form>
+
+                        <div class="form-group">
+
+                            <div class="input-group">
+                                <input id='chat-text'type="text" class="form-control" id="exampleInputAmount" placeholder="your guessing">
+                                <div id="chat-submit" class="btn btn-primary input-group-addon">Send</div>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
 </div>
 
+<script>
+
+    function submit($msg){
+        myApp.sendChatMessage($msg);
+    }
+    $('#chat-submit').click(function(e){
+        e.preventDefault();
+        var msg = $('#chat-text').val();
+        $('#chat-text').val('');
+        console.log(msg);
+        submit(msg);
+    });
+    $('#chat-submit').keyup(function(e){
+        e.preventDefault();
+        var msg = $('#chat-text').val();
+        $('#chat-text').val('' );
+        console.log(msg);
+        submit(msg);
+    });
+
+    /*
+    $("#chatbox").keyup(function (e) {
+        if (e.keyCode == 13) {
+            document.getElementById('chat-display').innerHTML+='<div><span class="name-chat">'+myApp.room.player.name+': </span>'+$("#chatboxmsg").val()+'</div';
+            myApp.server.sendMessage({type:'chatMSG', data:{name:myApp.room.player.name,content:$("#chatboxmsg").val()}});
+            $("#chatbox").val = '';
+        }
+    });*/
+</script>

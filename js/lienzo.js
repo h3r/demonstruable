@@ -134,12 +134,14 @@ function Lienzo($canvas){
 
 	
 	this.hideToolBox = function(){
-		that.toolBox.className = "hidden";
+		//that.toolBox.className = "hidden";
+		$(that.toolBox).css('visibility','hidden');
 		//that.submitBox.className = "";
 		//that.submitBox.focus();
 	};
 	this.showToolBox = function(){
-		that.toolBox.className = "";
+		//that.toolBox.className = "";
+		$(that.toolBox).css('visibility','visible');
 		//that.submitBox.className = "hidden";
 	};
 	

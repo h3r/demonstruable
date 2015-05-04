@@ -46,13 +46,13 @@ Room.prototype = {
 				case 'play':
 					this.lienzo.clear();
 					if(this.canvasSnapshot)
-						//this.lienzo.load(this.canvasSnapshot);
+						this.lienzo.load(this.canvasSnapshot);
 					this.playing($roomInfo.timeStamp);
 					break;
 				case 'end':
 					this.lienzo.clear();
 					if(this.canvasSnapshot)
-						//this.lienzo.load(this.canvasSnapshot);
+						this.lienzo.load(this.canvasSnapshot);
 					this.endGame($roomInfo.timeStamp);
 					break;
 			}
@@ -67,6 +67,7 @@ Room.prototype = {
 		this.info = {state:'start', timeStamp: new Date()};
 
 		this.lienzo.clear();
+		this.canvasSnapshot = null;
 
 		//this will be the word used if I end up being the painter:
 		this.currentWord = words[Math.floor(Math.random()*words.length)];
@@ -85,6 +86,9 @@ Room.prototype = {
 
 	playing: function($offsetTime){
 		console.log('Jugando');
+		if(this.canvasSnapshot){
+			this.lienzo.load(this.canvasSnapshot);
+		}
 		this.info = {state:'play', timeStamp: new Date()};
 		var dt = 0.0;
 		if($offsetTime){
@@ -110,10 +114,14 @@ Room.prototype = {
 			this.lienzo.setAsPlayer();
 			var that = this;
 		}
-		setTimeout(this.endGame.bind(this), 10000-dt);
+		setTimeout(this.endGame.bind(this), 60000-dt);
 	},
 
 	endGame: function($offsetTime){
+		if(this.canvasSnapshot){
+			this.lienzo.load(this.canvasSnapshot);
+		}
+
 		console.log('Fin de Partida');
 		this.info = {state:'end', timeStamp: new Date()};
 		var dt = 0.0;
@@ -139,17 +147,11 @@ Room.prototype = {
 function App(){
 	this.server = new SimpleServer();
 	this.HASH = 'c5714393f0c5f091321e43b0247aec43';
-	this.IP = "84.89.136.194";
+	this.IP = "127.0.0.1";//"84.89.136.194";JAVI //88.18.139.30:7000 CASA
 	this.PORT = ':7000';
 
 	this.room;
 
-	this.server.on_user_disconnected = function(e){
-		this.server.msgManager(e, {
-				type:'disconnected',
-				data:null
-		});
-	};
 }
 
 
@@ -202,25 +204,30 @@ App.prototype =  {
 		this.server.sendMessage(msg);
 	},
 
+	sendChatMessage: function($msg){
+		this.server.sendMessage({type:'chat',data:$msg});
+	},
+
 	msgManager : function($autor,$msg){
 
 		var msg = JSON.parse($msg);
+
 		switch(msg['type']) {
 			case 'new player':
 				console.log('msg:new player');
 				if (this.room.whoPaints + '' == this.room.player.id) {
 					var canvasSnapshot = this.room.lienzo.getImg();
 
+					this.server.sendMessage(JSON.stringify({
+						type: 'canvas',
+						data: canvasSnapshot
+					}), [msg['data'].id]);
 
 					this.server.sendMessage(JSON.stringify({
 						type: 'roomState',
 						data: this.room.info
 					}), [msg['data'].id]);
 
-					this.server.sendMessage(JSON.stringify({
-						type: 'canvas',
-						data: canvasSnapshot
-					}), [msg['data'].id]);
 
 					/*this.server.storeData(this.HASH+this.room.name, JSON.stringify(canvasSnapshot),function(){
 					 that.server.sendMessage(JSON.stringify({type:'canvas',data:canvasSnapshot}));
@@ -243,8 +250,14 @@ App.prototype =  {
 				console.log('msg:canvas');
 				if (this.room.whoPaints + '' != this.room.player.id) {
 
-					this.room.lienzo.load(msg['data']);
-					//this.room.canvasSnapshot = msg['data'];
+					//
+					var that = this;
+					var myInterval = setInterval(function(){
+						if(!that.room.lienzo)
+							return;
+						that.room.lienzo.load(msg['data']);
+						clearInterval(myInterval);
+					},250);
 
 
 					/*var that = this;
@@ -258,7 +271,6 @@ App.prototype =  {
 				console.log('msg:roomState');
 				var that = this;
 				loadContent('#app-content', 'views/game_layout.html', function () {
-					console.log('hey');
 					that.room.init(msg['data']);
 				});
 				break;
@@ -279,9 +291,10 @@ App.prototype =  {
 				}
 
 				break;
-			case 'chatMSG':
-				document.getElementById('chat-display').innerHTML+='<div><span class="name-chat">'+msg['data']['name']+': </span>'+msg['data']['content']+'</div'
-			break;
+			case 'chat':
+				console.log('msg: chat message');
+				break;
+
 
 		}
 	}

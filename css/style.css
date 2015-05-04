@@ -21,7 +21,7 @@ body{
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	overflow-x: hidden; 
+	overflow-x: hidden;
 }
 
 .logo{
@@ -58,67 +58,7 @@ canvas{
 	width:calc(100% - 6px);
 	border:3px solid whitesmoke;
 }*/
-
-#canvas-wrapper{
-	/*position: relative;*/
-	overflow: hidden; 
-	padding : 0;
-	margin: 0 ;
-}
-
-#timer{
-	
-}
-
-#chat-display{
-	background: rgba(0, 0, 0, 0.5);
-	overflow: hidden; 
-	text-align: left !important;
-
-}
-
-#toolbox{
-	position: absolute;
-	bottom: 5px;
-	left: calc(50% - 180px/2);
-	width: 180px;	
-	overflow: hidden;
-	pointer-events: none;
-}
-
-#chatbox{
-	position: absolute;
-	bottom: 5px;
-	left: 0; /* calc(50% - 180px/2);*/
-	width: 180px;	
-	overflow: hidden;
-	color: black;
-}
-
-
-.tool{
-	position: relative;
-	bottom: -10px;
-	transition: bottom 0.15s;
-	pointer-events: all;
-}
-
-.tool:hover{
-	bottom: 0px;
-}
-
-.current{
-	 -webkit-filter: drop-shadow(4px 4px 4px gray);
-	bottom: 0px;
-}
-
-
-.hidden{
-	display:none;
-}
-
 canvas{
-	/*position: absolute;*/
 	border:3px solid whitesmoke;
 	background-image:url("../imgs/bg_canvas_white.jpg");
 	width: 100%;
@@ -129,25 +69,102 @@ canvas{
 	float:inherit !important;
 }
 
-
 /* centered columns styles */
 .row-centered {
 	text-align:center;
-	display: table;
 }
 .col-centered {
-	display:table-cell;
+	display:inline-block;
 	float:none;
 	/* reset the text-align */
 	text-align:center;
 	/* inline-block space fix */
 	margin-right:-4px;
 }
+/*---------TOOL BAR----------------------------------------------*/
+#toolbox{
+	position: absolute;
+	bottom: 0	;
+	pointer-events: none;
+	overflow: hidden;
+}
+.tool{
+	position: relative;
+	bottom: -10px;
+	transition: bottom 0.15s;
+	pointer-events: all;
+	width:7%;
+}
+.tool:hover{
+	bottom: 0px;
+}
+.current{
+	-webkit-filter: drop-shadow(4px 4px 4px gray);
+	bottom: 0px;
+}
+/*----------CHAT---------------------------------------------*/
+#chat-wrapper * {
 
+}
+
+/*
 .hide-overflow{
-	overflow:hidden;	
+	overflow:hidden;
 }
 
 .name-chat{
-	font-weight: bold;	
+	font-weight: bold;
 }
+
+
+#canvas-wrapper{
+	overflow: hidden;
+	padding : 0;
+	margin: 0 ;
+}
+
+#timer{
+
+}
+
+#chat-display{
+	background: rgba(0, 0, 0, 0.5);
+	overflow: hidden;
+	text-align: left !important;
+
+}
+
+#toolbox{
+	position: absolute;
+	bottom: 5	left: calc(50% - 180px/2);/	width: 180px;0px;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+#chatbox{
+	position: absolute;
+	bottom: 5px;
+
+	width: 180px;
+	overflow: hidden;
+	color: black;
+}
+
+
+
+
+.tool:hover{
+	bottom: 0px;
+}
+
+.current{
+	-webkit-filter: drop-shadow(4px 4px 4px gray);
+	bottom: 0px;
+}
+
+
+.hidden{
+	display:none;
+}
+*/
+
