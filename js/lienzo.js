@@ -45,7 +45,7 @@ function Lienzo($canvas){
 		}
 	);
 
-	this.marker = new Tool('marker',
+	this.brush = new Tool('brush',
 		function($a,$b){
 			//that.context.lineJoin = "round";
 			that.context.globalCompositeOperation = "source-over";
@@ -66,7 +66,7 @@ function Lienzo($canvas){
 		}
 	);
 
-	this.ink = new Tool('ink',
+	this.marker= new Tool('marker',
 		function($a,$b){
 			//that.context.lineJoin = "round";
 			that.context.globalCompositeOperation = "source-over";
@@ -90,15 +90,14 @@ function Lienzo($canvas){
 	//drawing status
 	this.pressing = false;
 	//selected tool if local
-	this.currentTool = this.marker;
+	this.currentTool = this.pencil;
 	this.oldPosition = null;
 	//array of strokes to send
 	this.strokes = [];
 
 	this.canvas = document.getElementById($canvas);
 	this.context = this.canvas.getContext("2d");
-
-
+		
 	//this.oldHeight = document;
 
 
@@ -111,10 +110,34 @@ function Lienzo($canvas){
 	};
 	that.resizeCanvas();
 	$(window).resize(that.resizeCanvas);
-
+	
+	this.toolBox = document.getElementById("toolbox");
+	
 	this.selectTool=function($tool){
-		this.currentTool = this[$tool];
+		that.currentTool = this[$tool];
+		
+		var elements = that.toolBox.childNodes;
+		for(var i=0; i<elements.length; i++) {
+			elements[i].className = "tool";
+		}		
+		document.getElementById($tool).className = "tool current";
 	};
+	
+	this.selectTool("marker");
+	
+	
+	document.getElementById("eraser").addEventListener("mousedown", function(){that.selectTool("eraser")},false);
+	document.getElementById("marker").addEventListener("mousedown",function(){that.selectTool("marker")},false);
+	document.getElementById("brush").addEventListener("mousedown",function(){that.selectTool("brush")},false);
+	
+	
+	this.hideToolBox = function(){
+		that.toolBox.className = "hidden";
+	};
+	this.showToolBox = function(){
+		that.toolBox.className = "";
+	};
+	
 	//simple draw function
 	this.draw = function(strokes){
 

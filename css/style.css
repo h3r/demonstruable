@@ -57,7 +57,47 @@ canvas{
 	width:calc(100% - 6px);
 	border:3px solid whitesmoke;
 }*/
+
+#canvas-wrapper{
+	/*position: relative;*/
+}
+
+#timer{
+	
+}
+
+#toolbox{
+	position: absolute;
+	bottom: 5px;
+	left: calc(50% - 180px/2);
+	width: 180px;	
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.tool{
+	position: relative;
+	bottom: -10px;
+	transition: bottom 0.15s;
+	pointer-events: all;
+}
+
+.tool:hover{
+	bottom: 0px;
+}
+
+.current{
+	 -webkit-filter: drop-shadow(4px 4px 4px gray);
+	bottom: 0px;
+}
+
+
+.hidden{
+	display:none;
+}
+
 canvas{
+	/*position: absolute;*/
 	border:3px solid whitesmoke;
 	background-image:url("../imgs/bg_canvas_white.jpg");
 	width: 100%;
