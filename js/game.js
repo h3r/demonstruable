@@ -37,6 +37,7 @@ function Room($roomName,$player){
 	this.gameIntervalUpdater = {};
 	this.currentWord = '';
 	this.highestNumber = Math.random();
+	this.endGameTimeout = null;
 }
 Room.prototype = {
 	init: function($roomInfo){
@@ -81,7 +82,10 @@ Room.prototype = {
 		return 'unknown';
 	},
 	setTimer: function($time){
-				$("#timer").animate({width:"100%"},0).delay(100).animate({width:"0%"},$time);;
+				$("#timer").stop(true,true);
+				$("#timer").stop(true,true);
+				$("#timer").stop(true,true);
+				$("#timer").animate({width:"100%"},0).delay(100).animate({width:"0%"},$time);
 
 	},
 	startRound: function($offsetTime){
@@ -146,7 +150,7 @@ Room.prototype = {
 			var that = this;
 		}
 		this.setTimer(60000-dt);
-		setTimeout(this.endGame.bind(this), 60000-dt);
+		this.endGameTimeOut = setTimeout(this.endGame.bind(this), 60000-dt);
 	},
 
 	endGame: function($offsetTime){
@@ -178,6 +182,8 @@ Room.prototype = {
 	},
 
 	reward: function($id,$word){
+		clearInterval(this.endGameTimeout);
+		this.endGame(1000);
 		if($id == this.player.id){
 			this.player.lvl++;
 			showAlert('You won!','alert-success');
