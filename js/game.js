@@ -197,7 +197,7 @@ Room.prototype = {
 function App(){
 	this.server = new SimpleServer();
 	this.HASH = 'c5714393f0c5f091321e43b0247aec43';
-	this.IP = "84.89.136.194";//"127.0.0.1";//"84.89.136.194";JAVI //88.18.139.30:7000 CASA
+	this.IP = "127.0.0.1";//"84.89.136.194";JAVI //88.18.139.30:7000 CASA
 	this.PORT = ':7000';
 
 	this.room;
@@ -362,9 +362,10 @@ App.prototype =  {
 				break;
 			case 'chat':
 				if (this.room.whoPaints + '' == this.room.player.id){
-					if(msg['data']['data'] == this.room.currentWord)
-						this.room.reward($autor,msg['data']['data']);
-					this.server.sendMessage({type:'winner',data:{who:$autor,word:msg['data']['data']}});
+					if(msg['data']['data'].indexOf(this.room.currentWord)>=0) {
+						this.room.reward($autor, msg['data']['data']);
+						this.server.sendMessage({type: 'winner', data: {who: $autor, word: msg['data']['data']}});
+					}
 				}
 				console.log('msg: chat message');
 				var el = '<div class="chat-item '+msg['data']['type']+' col-xs-9" style="vertical-align:bottom ">' + msg['data']['data'] + '</div>' +
