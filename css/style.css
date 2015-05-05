@@ -25,6 +25,10 @@ body{
 	overflow-x: hidden;*/
 }
 
+* {
+	-webkit-transform: translateZ(0);
+}
+
 @media screen and (max-width: 1500px) { /* Specific to this particular image */
 	body {
 		overflow: hidden;
