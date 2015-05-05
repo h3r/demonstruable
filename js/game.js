@@ -149,6 +149,7 @@ Room.prototype = {
 			this.lienzo.setAsPlayer();
 			var that = this;
 		}
+		console.log("myOffset: "+dt);
 		this.setTimer(60000-dt);
 		this.endGameTimeOut = setTimeout(this.endGame.bind(this), 60000-dt);
 	},
@@ -182,8 +183,8 @@ Room.prototype = {
 	},
 
 	reward: function($id,$word){
-		clearInterval(this.endGameTimeout);
-		this.endGame(1000);
+		clearTimeout(this.endGameTimeout);
+		this.endGame(0);
 		if($id == this.player.id){
 			this.player.lvl++;
 			showAlert('You won!','alert-success');
