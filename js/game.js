@@ -197,7 +197,7 @@ Room.prototype = {
 function App(){
 	this.server = new SimpleServer();
 	this.HASH = 'c5714393f0c5f091321e43b0247aec43';
-	this.IP = "127.0.0.1";//"84.89.136.194";JAVI //88.18.139.30:7000 CASA
+	this.IP = "84.89.136.194";//"127.0.0.1";//"84.89.136.194";JAVI //88.18.139.30:7000 CASA
 	this.PORT = ':7000';
 
 	this.room;
