@@ -163,16 +163,23 @@ Room.prototype = {
 		this.info = {state:'end', timeStamp: new Date()};
 		var dt = 0.0;
 		if($offsetTime){
-			dt = new Date() - new Date($offsetTime);
+			if(!($offsetTime instanceof Date)){
+				//si el date no es un date, lo convertimos en un date. Date.
+				console.log($offsetTime)
+				$offsetTime = new Date($offsetTime);
+			}
+
+			dt = new Date() - $offsetTime;
 			this.info.timeStamp = $offsetTime;
 		}
-		clearTimeout(this.gameIntervalUpdater);
+		clearInterval(this.gameIntervalUpdater);
 		this.lienzo.setAsPlayer();
 		//animacion "seleccionando el siguiente jugador"
 		
 		this.highestNumber = Math.random();
 		this.whoPaints = this.player.id;
-		//this.setTimer(1000-dt);
+		console.log("endgame DT: "+ dt)
+		this.setTimer(1000-dt);
 		setTimeout(this.startRound.bind(this), 1000-dt);
 	},
 
@@ -182,9 +189,10 @@ Room.prototype = {
 		this.lienzo.draw($data);
 	},
 
-	reward: function($id,$word){
+	reward: function($id,$word,$date){
+		console.log("reward");
 		clearTimeout(this.endGameTimeout);
-		this.endGame(0);
+		this.endGame($date);
 		if($id == this.player.id){
 			this.player.lvl++;
 			showAlert('You won!','alert-success');
@@ -198,7 +206,7 @@ Room.prototype = {
 function App(){
 	this.server = new SimpleServer();
 	this.HASH = 'c5714393f0c5f091321e43b0247aec43';
-	this.IP = "127.0.0.1";//"84.89.136.194";JAVI //88.18.139.30:7000 CASA
+	this.IP = "84.89.136.194";//JAVI //88.18.139.30:7000 CASA
 	this.PORT = ':7000';
 
 	this.room;
@@ -364,8 +372,9 @@ App.prototype =  {
 			case 'chat':
 				if (this.room.whoPaints + '' == this.room.player.id){
 					if(msg['data']['data'].indexOf(this.room.currentWord)>=0) {
-						this.room.reward($autor, msg['data']['data']);
-						this.server.sendMessage({type: 'winner', data: {who: $autor, word: msg['data']['data']}});
+						var myDate = new Date();
+						this.room.reward($autor, msg['data']['data'], myDate);
+						this.server.sendMessage({type: 'winner', data: {who: $autor, word: msg['data']['data'], date: myDate}});
 					}
 				}
 				console.log('msg: chat message');
@@ -379,7 +388,7 @@ App.prototype =  {
 				break;
 			case 'winner':
 				console.log('msg:winner');
-				this.room.reward( msg['data']['who'], msg['data']['word']);
+				this.room.reward( msg['data']['who'], msg['data']['word'], msg['data']['date']);
 				break;
 
 
