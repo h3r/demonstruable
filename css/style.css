@@ -134,11 +134,24 @@ canvas{
 	border-radius: 20px 35px 5px 20px;
 }
 
+.avatars {
+    width:100%;
+}
+.chat-avatar bla{
+
+    display: inline-block;
+}
 
 .chat-avatar img{
+    margin:auto;
 	background-color: #ffffff;
 	padding:2px;
 	border-radius: 3px 5px 5px 5px;
+
+}
+.chat-avatar figcaption{
+    width:100%;
+    text-align:center;
 }
 
 .chat-item .whisper{

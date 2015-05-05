@@ -92,7 +92,7 @@ Room.prototype = {
 
 		console.log('Inicio de partida');
 
-		$("#current-word").html("Be prepared!!!");
+		$("#current-word").html("get ready for next round");
 		this.info = {state:'start', timeStamp: new Date()};
 
 		this.lienzo.clear();
@@ -101,9 +101,6 @@ Room.prototype = {
 		//this will be the word used if I end up being the painter:
 		this.currentWord = words[Math.floor(Math.random()*words.length)];
 
-		
-		myApp.server.sendMessage({type:'turnSelector', data:this.highestNumber});
-		
 		var dt = 0.0;
 		if($offsetTime){
 			dt = new Date() - new Date($offsetTime);
@@ -131,7 +128,7 @@ Room.prototype = {
 
 		if(this.whoPaints+'' == this.player.id){
 			this.lienzo.setAsPainter();
-			$('#current-word').html(this.currentWord);
+			$('#current-word').html('"'+this.currentWord+'"');
 			
 			//showtools
 			var that = this;
@@ -150,8 +147,8 @@ Room.prototype = {
 			var that = this;
 		}
 		console.log("myOffset: "+dt);
-		this.setTimer(60000-dt);
-		this.endGameTimeOut = setTimeout(this.endGame.bind(this), 60000-dt);
+		this.setTimer(35000-dt);
+		this.endGameTimeOut = setTimeout(this.endGame.bind(this), 35000-dt);
 	},
 
 	endGame: function($offsetTime){
@@ -160,27 +157,27 @@ Room.prototype = {
 		}
 
 		console.log('Fin de Partida');
-		this.info = {state:'end', timeStamp: new Date()};
-		var dt = 0.0;
-		if($offsetTime){
-			if(!($offsetTime instanceof Date)){
-				//si el date no es un date, lo convertimos en un date. Date.
-				console.log($offsetTime)
-				$offsetTime = new Date($offsetTime);
-			}
 
-			dt = new Date() - $offsetTime;
-			this.info.timeStamp = $offsetTime;
-		}
-		clearInterval(this.gameIntervalUpdater);
+        this.info = {state:'end', timeStamp: new Date()};
+        var dt = 0.0;
+        if($offsetTime){
+            dt = new Date() - new Date($offsetTime);
+            this.info.timeStamp = $offsetTime;
+        }
+
+        $('#current-word').html('TIMEOUT!');
+
+		clearTimeout(this.gameIntervalUpdater);
 		this.lienzo.setAsPlayer();
 		//animacion "seleccionando el siguiente jugador"
 		
 		this.highestNumber = Math.random();
 		this.whoPaints = this.player.id;
-		console.log("endgame DT: "+ dt)
-		this.setTimer(1000-dt);
-		setTimeout(this.startRound.bind(this), 1000-dt);
+        myApp.server.sendMessage({type:'turnSelector', data:this.highestNumber});
+
+		//this.setTimer(1000-dt);
+
+		setTimeout(this.startRound.bind(this), 3000-dt);
 	},
 
 	draw: function($data){
@@ -191,8 +188,8 @@ Room.prototype = {
 
 	reward: function($id,$word,$date){
 		console.log("reward");
-		clearTimeout(this.endGameTimeout);
-		this.endGame($date);
+		//clearTimeout(this.endGameTimeout);
+		//this.endGame($date.toString());
 		if($id == this.player.id){
 			this.player.lvl++;
 			showAlert('You won!','alert-success');
@@ -263,6 +260,20 @@ App.prototype =  {
 		this.server.sendMessage(msg);
 	},
 
+    updateChatAvatars :function(){
+        $('#avatars').html('');
+        for(var i in this.room.playerNames){
+            var player = this.room.playerNames[i];
+            var el = '' +
+                '<figure class="chat-avatar">'+
+                '<img src="imgs/cards/avatar_'+ player.avatar +'.jpg" alt="avatar"  width="42">'+
+                '<figcaption>'+ player.name +'</figcaption>'+
+                '</figure>';
+            $('#avatars').append(el);
+        }
+
+    },
+
 	sendChatMessage: function($msg,$type){
 		if($msg === '')
 			return;
@@ -312,6 +323,7 @@ App.prototype =  {
 			case 'player':
 				console.log('msg:player');
 				this.room.playerNames[ msg['data'].id ] = msg['data'];
+                this.updateChatAvatars();
 				break;
 			case 'stroke':
 				console.log('msg:stroke');
@@ -353,9 +365,13 @@ App.prototype =  {
 			case 'disconnected':
 				if (this.room.whoPaints + '' == $autor)
 					this.refreshRoomPlayers();
+                if(this.room.playerNames[$autor+''])
+                    delete this.room.playerNames[$autor+''];
+                this.updateChatAvatars();
 				break;
-				if(this.room.playerNames[$autor+''])
-					delete this.room.playerNames[$autor+''];
+
+
+
 
 				
 			case 'turnSelector':
